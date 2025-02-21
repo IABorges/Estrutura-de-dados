@@ -13,6 +13,30 @@ typedef struct{
     int qtd;
 }LDDE;
 
+Celula *criar_celula(int valor){
+    Celula *novo = malloc(sizeof(Celula));
+    novo->anterior = NULL;
+    novo->proximo =NULL;
+    novo->valor =valor;
+    return novo;
+}
+
+LDDE *criar_lista(){
+    LDDE *lista = malloc(sizeof(LDDE));
+    lista->primeiro = NULL;
+    lista->qtd = 0;
+    return lista;
+}
+
+void mostrar(LDDE *lista){
+    Celula *atual = lista->primeiro;
+    while(atual != NULL){
+        printf("%d ", atual->valor);
+        atual = atual->proximo;
+    }
+    printf("\n");
+}
+
 
 void inserir(LDDE *lista, int valor){
     Celula *novo= criar_celula(valor);
@@ -43,17 +67,17 @@ void inserir(LDDE *lista, int valor){
     lista-> qtd++;
 }
 
-Celula * criar_celula(int valor){
-    Celula *novo = malloc(sizeof(Celula));
-    novo->anterior = NULL;
-    novo->proximo =NULL;
-    novo->valor =valor;
-    return novo;
-}
 
-LDDE *criar_lista(){
-    LDDE *lista = malloc(sizeof(LDDE));
-    lista->primeiro = NULL;
-    lista->qtd = 0;
-    return lista;
+
+int main(){
+    LDDE *lista = criar_lista();
+    inserir(lista,12);
+    mostrar(lista);
+    inserir(lista,8);
+    mostrar(lista);
+    inserir(lista,18);
+    mostrar(lista);
+    inserir(lista,15);
+    mostrar(lista);
+    return 0;
 }
