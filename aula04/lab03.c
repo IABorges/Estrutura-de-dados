@@ -125,6 +125,7 @@ void remover_valor(ListaDuplamenteEncadeada *lista, int valor) {
     }
     if(anterior == NULL){ //removendo do inicio
         lista -> inicio = atual->proximo;
+        
     }else 
 
     lista -> quantidade--;
