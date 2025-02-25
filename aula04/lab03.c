@@ -123,10 +123,27 @@ void remover_valor(ListaDuplamenteEncadeada *lista, int valor) {
         anterior = atual;
         atual = atual->proximo;
     }
-    if(anterior == NULL){ //removendo do inicio
+    if(atual ->anterior == NULL){ //removendo do inicio
         lista -> inicio = atual->proximo;
-        
-    }else 
+        anterior = atual;
+        atual = atual -> proximo;
+        atual -> anterior = NULL;
+        anterior -> proximo = NULL;
+    }if(atual -> proximo == NULL){// removendo do fim 
+
+        atual -> anterior = NULL;
+        anterior ->proximo =NULL;
+
+    }else if(atual->proximo != NULL && atual->anterior != NULL ){
+        //atual -> anterior = NULL;
+        anterior -> proximo = atual -> proximo;
+        anterior = atual;
+        atual = atual->proximo;
+        atual -> anterior = anterior->anterior;
+        anterior -> proximo = NULL;
+        anterior -> anterior = NULL;
+
+    }
 
     lista -> quantidade--;
 }
@@ -136,7 +153,7 @@ int main(void) {
 
     inserir_valor(lista, 10);
     exibir_lista(lista);
-    exibir_lista_invertida(lista);
+    exibir_lista_invertida(lista);  
 
     inserir_valor(lista, 5);
     exibir_lista(lista);
