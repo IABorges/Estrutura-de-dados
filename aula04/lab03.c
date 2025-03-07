@@ -75,6 +75,7 @@ void inserir_valor(ListaDuplamenteEncadeada *lista, int valor) {
 
 
     lista-> quantidade++;
+   
 }
 
 /**
@@ -84,16 +85,18 @@ void inserir_valor(ListaDuplamenteEncadeada *lista, int valor) {
  */
 void exibir_lista(ListaDuplamenteEncadeada *lista) {
     // implementar
-    printf("Início -> ");
+
     No *atual = lista->inicio;
-    while(atual != NULL ){
-        printf("%d ", atual->valor);
-        atual = atual->proximo;
-    }
-    printf("<- Final \n");
 
+   
+        printf("Início -> ");
+        while(atual != NULL ){
+            printf("%d ", atual->valor);
+            atual = atual->proximo;
+        }
+        printf("<- Final \n");
     
-
+   
 }
 void exibir_lista_invertida(ListaDuplamenteEncadeada *lista) {
     // implementar
@@ -110,6 +113,8 @@ void exibir_lista_invertida(ListaDuplamenteEncadeada *lista) {
         atual = atual->anterior;
     }
     printf("<- Início \n");
+
+   
 
 }
 
@@ -134,7 +139,7 @@ void remover_valor(ListaDuplamenteEncadeada *lista, int valor) {
         atual -> anterior = NULL;
         anterior ->proximo =NULL;
 
-    }else if(atual->proximo != NULL && atual->anterior != NULL ){
+    }if(atual->proximo != NULL && atual->anterior != NULL ){ //remover do meio
         //atual -> anterior = NULL;
         anterior -> proximo = atual -> proximo;
         anterior = atual;
@@ -143,7 +148,12 @@ void remover_valor(ListaDuplamenteEncadeada *lista, int valor) {
         anterior -> proximo = NULL;
         anterior -> anterior = NULL;
 
+    }if(lista -> quantidade == 1){ //lista unitaria
+        lista -> inicio =NULL;
+        printf("removendo valor");
+
     }
+
 
     lista -> quantidade--;
 }
