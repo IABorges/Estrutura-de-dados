@@ -31,7 +31,7 @@ int is_empty(Queue *q){
 
 int dequeue(Queue *q){
     if(is_empty(q)){
-        print("queue is empty\n");
+        printf("queue is empty\n");
         return 0;
     }
     int value = q->queue[q->head % CAP];
