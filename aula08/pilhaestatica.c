@@ -44,16 +44,16 @@ void push(Pilha *pilha ,int valor){
 
 }
 
-Pilha pop(Pilha *pilha){
+// Pilha pop(Pilha *pilha){
 
-    Celula *atual = pilha->topo;
-    if(pilha->qtd>0){
-        pilha->topo->anterior = NULL;
-        pilha->topo = pilha->topo->anterior;
-        free(atual);
-    }
-    atual = pilha->topo;
-}
+//     Celula *atual = pilha->topo;
+//     if(pilha->qtd>0){
+//         pilha->topo->anterior = NULL;
+//         pilha->topo = pilha->topo->anterior;
+//         free(atual);
+//     }
+//     atual = pilha->topo;
+// }
 
 void mostrar(Pilha *pilha){
 
@@ -75,10 +75,10 @@ int main(){
         mostrar(pilha);
     }
 
-    for(int i = 0 ;i<9;i++){
-        pop(pilha);
-        mostrar(pilha);
-    }
+    // for(int i = 0 ;i<9;i++){
+    //     pop(pilha);
+    //     mostrar(pilha);
+    // }
 
     return 0;
 
