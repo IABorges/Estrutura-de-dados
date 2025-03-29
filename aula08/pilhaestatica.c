@@ -65,7 +65,6 @@ void mostrar(Stack *pilha){
 }
 
 int main(void) {
-    Stack *stack = start_stack();
     Stack *stackCol = start_stack();
     Stack *stackPar = start_stack();
     Stack *stackCha = start_stack();
@@ -74,42 +73,40 @@ int main(void) {
     
     int Erro = 0;
     for(int i =0; expr[i] != '\0';i++){
-        // printf("%c\n",expr[i]);
+        // // printf("%c\n",expr[i]);
 
         if(expr[i] == '{'  ){
            push(stackCha, expr[i]);
-           printf("%d\n",stackCha ->qtde);
+           // printf("%d\n",stackCha ->qtde);
 
         }
         else if(expr[i] == '[' && stackCha -> qtde != 0){
             push(stackCol, expr[i]);
-            printf("%d\n",stackCol ->qtde);
+            // printf("%d\n",stackCol ->qtde);
 
-           
-
-        }else if(expr[i] == '(' && stackCol -> qtde != 0){
+        }else if(expr[i] == '('  ){
+            if(stackPar -> qtde != 0){
+                Erro++;
+                break;
+            }
             push(stackPar, expr[i]);
-            printf("%d\n",stackPar ->qtde);
-            
 
-        }else if(expr[i] == ')'){
-            pop(stackPar);
-            printf("%d\n",stackPar ->qtde);
-
-        }else if(expr[i] == ']' && stackPar->qtde == 0){
-            pop(stackCol);
-            printf("%d\n",stackCol ->qtde);
-
-        }else if(expr[i] == '}' && stackCol->qtde == 0){
-            pop(stackCha);
-            printf("%d\n",stackCha ->qtde);
-        }
-         else if(expr[i] == '[' && stackCha -> qtde == 0){
+        }else if(expr[i] == '[' && stackCha -> qtde == 0){
             Erro++;
  
          }else if(expr[i] == '(' && stackCol -> qtde == 0){
             Erro++;
          }
+        else if(expr[i] == ')'){
+            pop(stackPar);
+
+        }else if(expr[i] == ']' && stackPar->qtde == 0){
+            pop(stackCol);
+
+        }else if(expr[i] == '}' && stackCol->qtde == 0){
+            pop(stackCha);
+        }
+        
 
  
 }
