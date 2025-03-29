@@ -1,63 +1,60 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct Celula{
-    struct Celula *proximo;
-    struct Celula *anterior;
-    int valor;
-}Celula;
+typedef struct Cell {
+  struct Cell *anterior;
+  struct Cell *proximo;
+  char valor;
+} Cell;
 
-typedef struct{
-    int qtd;
-    Celula *topo;
-}Pilha;
+typedef struct {
+  Cell *top;
+  int qtde;
+} Stack;
 
-Celula*criar_celula(int valor){
-
-    Celula *nova = malloc(sizeof(Celula));
-    nova->anterior =NULL;
-    nova->proximo = NULL;
-    nova -> valor = valor;
-
-    return nova;
+Cell *start_cell(char valor) {
+  Cell *nova = malloc(sizeof(Cell));
+  nova->anterior = NULL;
+  nova->proximo = NULL;
+  nova->valor = valor;
+  return nova;
 }
 
-Pilha *criar_pilha(){
-
-    Pilha *pilha = malloc(sizeof(Pilha));
-
-    pilha->topo = NULL;
-    pilha -> qtd = 0;
-    return pilha;
+Stack *start_stack() {
+  Stack *stack = malloc(sizeof(Stack));
+  stack->qtde = 0;
+  stack->top = NULL;
+  return stack;
 }
 
-void push(Pilha *pilha ,int valor){
-
-    Celula *nova = criar_celula(valor);
-    if(pilha->qtd > 0){ // vazia
-        pilha -> topo->proximo = nova;
-        nova -> anterior = pilha->topo;
-    }
-
-    pilha->topo = nova;
-    pilha->qtd++;
-
+void push(Stack *stack, char valor) {
+  Cell *nova = start_cell(valor);
+  if (stack->qtde != 0) {
+    nova->proximo = stack->top;
+    stack->top->anterior = nova;
+  }
+  stack->top = nova;
+  stack->qtde++;
 }
 
-// Pilha pop(Pilha *pilha){
+char pop(Stack *stack) {
+  if (stack->qtde > 0) {
+    char valor = stack->top->valor;
+    Cell *top = stack->top;
+    stack->top = stack->top->proximo;
+    if (stack->top != NULL)
+      stack->top->anterior = NULL;
+    stack->qtde--;
+    free(top);
+    return valor;
+  } else {
+    return 'x';
+  }
+}
 
-//     Celula *atual = pilha->topo;
-//     if(pilha->qtd>0){
-//         pilha->topo->anterior = NULL;
-//         pilha->topo = pilha->topo->anterior;
-//         free(atual);
-//     }
-//     atual = pilha->topo;
-// }
+void mostrar(Stack *pilha){
 
-void mostrar(Pilha *pilha){
-
-    Celula *atual = pilha->topo;
+    Cell *atual = pilha->top;
     printf("TOPO ->");
     while(atual != NULL){
         printf("%d ", atual->valor);
@@ -67,19 +64,61 @@ void mostrar(Pilha *pilha){
 
 }
 
-int main(){
-    Pilha *pilha = criar_pilha();
+int main(void) {
+    Stack *stack = start_stack();
+    Stack *stackCol = start_stack();
+    Stack *stackPar = start_stack();
+    Stack *stackCha = start_stack();
+    char expr[100];
+    fgets(expr, sizeof(expr), stdin);
+    
+    int Erro = 0;
+    for(int i =0; expr[i] != '\0';i++){
+        // printf("%c\n",expr[i]);
 
-    for(int i = 0 ;i<9;i++){
-        push(pilha,i);
-        mostrar(pilha);
+        if(expr[i] == '{'  ){
+           push(stackCha, expr[i]);
+           printf("%d\n",stackCha ->qtde);
+
+        }
+        else if(expr[i] == '[' && stackCha -> qtde != 0){
+            push(stackCol, expr[i]);
+            printf("%d\n",stackCol ->qtde);
+
+           
+
+        }else if(expr[i] == '(' && stackCol -> qtde != 0){
+            push(stackPar, expr[i]);
+            printf("%d\n",stackPar ->qtde);
+            
+
+        }else if(expr[i] == ')'){
+            pop(stackPar);
+            printf("%d\n",stackPar ->qtde);
+
+        }else if(expr[i] == ']' && stackPar->qtde == 0){
+            pop(stackCol);
+            printf("%d\n",stackCol ->qtde);
+
+        }else if(expr[i] == '}' && stackCol->qtde == 0){
+            pop(stackCha);
+            printf("%d\n",stackCha ->qtde);
+        }
+         else if(expr[i] == '[' && stackCha -> qtde == 0){
+            Erro++;
+ 
+         }else if(expr[i] == '(' && stackCol -> qtde == 0){
+            Erro++;
+         }
+
+ 
+}
+
+    if(stackCha->qtde == 0 && stackCol->qtde == 0 && stackPar->qtde == 0 && Erro == 0){
+        printf("correto");
+    } else{
+        printf("incorreto");
     }
 
-    // for(int i = 0 ;i<9;i++){
-    //     pop(pilha);
-    //     mostrar(pilha);
-    // }
-
     return 0;
-
 }
