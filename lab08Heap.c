@@ -36,8 +36,8 @@ void peneirar(heap *h, int pai) {
 
 void mostrar(heap *h) {
   // implementar
-    for(int i = 0; i < LEN ;i++ ){
-        printf("%d\n", h->valores[i]);
+    for(int i = 0; i < h->qtde ;i++ ){
+        printf("%d", h->valores[i]);
     }
 
 }
@@ -47,18 +47,11 @@ void construir(heap *h) {
 }
 
 void inserir(heap *h, int valor) {
-  // implementar
-    // int i=0;
-
-    for(int i=0; ){
+    
+    while(h->qtde < LEN){
+        h->valores[h->qtde]=valor;
+        h->qtde++;
     }
-//    if(i < LEN ){
-//     h->valores[i] = valor;
-//     i++;
-//    }else{
-//     printf("cheio");
-//    }
-
 }
 
 void remover(heap *h) {
