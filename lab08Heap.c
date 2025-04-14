@@ -48,7 +48,7 @@ void construir(heap *h) {
 
 void inserir(heap *h, int valor) {
     
-    while(h->qtde < LEN){
+    while(h->qtde < 10){
         h->valores[h->qtde]=valor;
         h->qtde++;
     }
