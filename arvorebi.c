@@ -84,8 +84,7 @@ void inserir(Arvore* arvore, int valor){
 }
 
 int remover_vertice(Arvore* arvore, Vertice* vertice) {
-    // implementar
-    
+    // implementar  
    int count = 0;
    if(vertice->dir != NULL){
     count++;
@@ -138,7 +137,7 @@ int remover_vertice(Arvore* arvore, Vertice* vertice) {
 			arvore->raiz = vertice->dir;
 		}
     }
-	free(vertice);
+		free(vertice);
 		arvore->qtde--;
    }
    if(count==2){
@@ -149,6 +148,7 @@ int remover_vertice(Arvore* arvore, Vertice* vertice) {
         vertice->valor = sucessor->valor;
         remover_vertice(arvore, sucessor);
    }
+   return 1;
 }
 
 Vertice *buscar_valor(Arvore* arvore, int valor){
